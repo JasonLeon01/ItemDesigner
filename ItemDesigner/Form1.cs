@@ -50,7 +50,7 @@ namespace ItemDesigner
             listBox1.SelectedIndex = 0;
             textBox1.Text = items[0].name;
             textBox2.Text = items[0].description;
-            pictureBox1.Image = Image.FromFile(@"..\graphics\character\" + items[0].file);
+            pictureBox1.Image = Image.FromFile(@"..\assets\character\" + items[0].file);
             textBox3.Text = items[0].price.ToString();
             checkBox1.Checked = items[0].usable;
             checkBox2.Checked = items[0].cost;
@@ -90,8 +90,8 @@ namespace ItemDesigner
             listIndex = listBox1.SelectedIndex;
             textBox1.Text = items[listIndex].name;
             textBox2.Text = items[listIndex].description;
-            if (File.Exists(@"..\graphics\character\" + items[listIndex].file))
-                pictureBox1.Image = Image.FromFile(@"..\graphics\character\" + items[listIndex].file);
+            if (File.Exists(@"..\assets\character\" + items[listIndex].file))
+                pictureBox1.Image = Image.FromFile(@"..\assets\character\" + items[listIndex].file);
             else
             {
                 if (pictureBox1.Image != null)
@@ -128,7 +128,7 @@ namespace ItemDesigner
                 //创建对象
                 OpenFileDialog ofg = new OpenFileDialog();
                 //设置默认打开路径
-                ofg.InitialDirectory = Path.GetDirectoryName(Path.GetDirectoryName(Application.ExecutablePath)) + "\\graphics\\character";
+                ofg.InitialDirectory = Path.GetDirectoryName(Path.GetDirectoryName(Application.ExecutablePath)) + "\\assets\\character";
                 ofg.RestoreDirectory = true;
                 //设置打开标题、后缀
                 ofg.Title = "请选择导入png文件";
@@ -139,7 +139,7 @@ namespace ItemDesigner
                     //得到打开的文件路径（包括文件名）
                     string[] names = ofg.FileName.ToString().Split('\\');
                     items[listIndex].file = names[names.Length - 1];
-                    pictureBox1.Image = Image.FromFile(@"..\graphics\character\" + items[listIndex].file);
+                    pictureBox1.Image = Image.FromFile(@"..\assets\character\" + items[listIndex].file);
                 }
                 else
                     MessageBox.Show("未选择打开文件！");
@@ -189,7 +189,7 @@ namespace ItemDesigner
                 {
                     Encoder = JavaScriptEncoder.Create(UnicodeRanges.All),
                     DefaultIgnoreCondition = JsonIgnoreCondition.Never,
-                    WriteIndented = true
+                    WriteIndented = false
                 };
                 string jsonstr = JsonSerializer.Serialize(itm, options);
                 System.IO.File.WriteAllText(path + file, jsonstr);
